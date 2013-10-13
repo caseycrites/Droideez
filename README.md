@@ -48,7 +48,22 @@ Check if you should log out in your home activity.
     protected void onNewIntent(Intent i) {
         super.onNewIntent(i);
 
-        IntentUtils.logoutIfTold(this, i);
+        if (IntentUtils.logoutIfTold(this, i))
+            return;
+    }
+
+Listen for logouts, maybe clean things up.
+
+    // Set on app launch
+    IntentUtils.setOnLogoutListener(myLogoutListener);
+
+    // Some class
+    public class SomeClass implements OnLogoutListener {
+        @Override
+        public void onLogout() {
+            getSharedPreferences("my.prefs").edit().clear().commit();
+            ACTIVE_USER = null;
+        }
     }
 
 ## StreamUtils

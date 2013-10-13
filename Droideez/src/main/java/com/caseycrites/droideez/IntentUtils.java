@@ -10,12 +10,22 @@ import android.content.Intent;
 public class IntentUtils {
 
   /**
+   * Interface for listening for logouts.
+   *
+   * Use this to clean things up before logging out.
+   */
+  public static interface OnLogoutListener {
+    public void onLogout();
+  }
+
+  /**
    *  Intent extra key signifying a logout request.
    */
   public static final String LOGOUT_KEY = "droideez_logout";
 
   private static Class mHomeActivity;
   private static Class mLogoutActivity;
+  private static OnLogoutListener mListener;
 
   private IntentUtils() {}
 
@@ -39,6 +49,17 @@ public class IntentUtils {
    */
   public static void setLogoutActivity(Class logoutActivityClass) {
     mLogoutActivity = logoutActivityClass;
+  }
+
+  /**
+   * Listen for logouts.
+   *
+   * Use this to do cleanup before logging out of the app.
+   *
+   * @param listener
+   */
+  public static void setOnLogoutListener(OnLogoutListener listener) {
+    mListener = listener;
   }
 
   // logout intent creation
@@ -78,12 +99,17 @@ public class IntentUtils {
    * @param a Activity checking for logout.
    * @param i Intent to check for logout.
    * @param loggedOutActivityClass
+   * @return boolean Whether the logout is initiated.
    */
-  public static void logoutIfTold(Activity a, Intent i, Class loggedOutActivityClass) {
+  public static boolean logoutIfTold(Activity a, Intent i, Class loggedOutActivityClass) {
     if (i.getBooleanExtra(LOGOUT_KEY, false)) {
+      if (mListener != null)
+        mListener.onLogout();
       a.startActivity(baseIntent(a.getBaseContext(), loggedOutActivityClass));
       a.finish();
+      return true;
     }
+    return false;
   }
 
   /**
@@ -91,14 +117,19 @@ public class IntentUtils {
    *
    * @param a Activity checking for logout.
    * @param i Intent to check for logout.
+   * @return boolean Whether the logout is initiated.
    */
-  public static void logoutIfTold(Activity a, Intent i) {
+  public static boolean logoutIfTold(Activity a, Intent i) {
     if (mLogoutActivity == null)
       throw new IllegalArgumentException("Must either set a default logout activity or supply at runtime.");
     if (i.getBooleanExtra(LOGOUT_KEY, false)) {
+      if (mListener != null)
+        mListener.onLogout();
       a.startActivity(baseIntent(a.getBaseContext(), mLogoutActivity));
       a.finish();
+      return true;
     }
+    return false;
   }
 
   // helper

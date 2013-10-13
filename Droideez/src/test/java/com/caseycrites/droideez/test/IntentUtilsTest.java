@@ -73,6 +73,12 @@ public class IntentUtilsTest {
   @Test
   public void testLogoutIfTold() {
     Intent i = IntentUtils.createLogoutIntent(childActivity, HomeActivity.class);
+    IntentUtils.setOnLogoutListener(new IntentUtils.OnLogoutListener() {
+      @Override
+      public void onLogout() {
+        assertTrue(true);
+      }
+    });
 
     IntentUtils.logoutIfTold(homeActivity, i, LogoutActivity.class);
 
