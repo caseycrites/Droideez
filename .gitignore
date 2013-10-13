@@ -1,0 +1,16 @@
+# gradle
+.gradle
+gradlew
+gradlew.bat
+gradle
+
+# android
+/local.properties
+
+# mac
+.DS_Store
+
+# intellij
+/.idea/workspace.xml
+.idea
+*.iml
