@@ -9,6 +9,9 @@ import android.net.Uri;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+/**
+ * Collection of Bitmap related methods.
+ */
 public class BitmapUtils {
 
   private Context mContext;
@@ -23,6 +26,17 @@ public class BitmapUtils {
 
   // decoders
 
+  /**
+   * Downsample a bitmap from a Uri.
+   *
+   * You probably got this Uri from the gallery or dropbox or a raw resource.
+   *
+   * @param bitmapUri Uri of bitmap.
+   * @param reqWidth Requested width in pixels of the resulting bitmap.
+   * @param reqHeight Requested height in pixels of the resulting bitmap.
+   * @return Bitmap
+   * @throws FileNotFoundException
+   */
   public Bitmap decodeFromUri(Uri bitmapUri, int reqWidth, int reqHeight)
     throws FileNotFoundException {
     final BitmapFactory.Options options = justDecodeOptions();
@@ -41,6 +55,14 @@ public class BitmapUtils {
     return bm;
   }
 
+  /**
+   * Downsample a bitmap from your apps resources.
+   *
+   * @param resId Resource id of the Bitmap.
+   * @param reqWidth Requested width in pixels of the resulting bitmap.
+   * @param reqHeight Requested height in pixels of the resulting bitmap.
+   * @return Bitmap
+   */
   public Bitmap decodeFromResource(int resId, int reqWidth, int reqHeight) {
     final BitmapFactory.Options options = justDecodeOptions();
     Resources res = mContext.getResources();

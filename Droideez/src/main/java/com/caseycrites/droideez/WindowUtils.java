@@ -7,6 +7,9 @@ import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 
+/**
+ * Collection of methods related to the device screen.
+ */
 public class WindowUtils {
 
   private boolean mThirteenOrHigher;
@@ -18,10 +21,21 @@ public class WindowUtils {
     mThirteenOrHigher = Build.VERSION.SDK_INT >= 13;
   }
 
+  /**
+   * Get an WindowUtils instance.
+   *
+   * @param context
+   * @return WindowUtils
+   */
   public static WindowUtils with(Context context) {
     return new WindowUtils(context);
   }
 
+  /**
+   * Get the default displays dimensions.
+   *
+   * @return Point
+   */
   @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
   public Point getDimensions() {
     Point size = new Point();
