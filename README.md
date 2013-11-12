@@ -87,3 +87,14 @@ Get the dimensions of the default display.
 
     Point dimensions = WindowUtils.with(context).getDimensions();
     Bitmap bm = BitmapUtils.with(context).decodeFromUri(someUri, dimensions.x, dimensions.y);
+
+## FileUtils
+
+Recursively calculate the size of a directory.
+
+    File directory = context.getFilesDir();
+    long size = FileUtils.calculateSize(directory);
+
+Recursively delete a directory.
+
+    FileUtils.deleteDirectory(directory);
