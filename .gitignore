@@ -6,6 +6,7 @@ gradle
 
 # android
 /local.properties
+Droideez/gen/
 
 # mac
 .DS_Store
