@@ -1,5 +1,7 @@
 # Droideez
 
+[![Build Status](https://travis-ci.org/caseycrites/Droideez.png?branch=master)](https://travis-ci.org/caseycrites/Droideez)
+
 A collection of Android utility classes for things I use frequently.
 
 ## BitmapUtils
